@@ -1,0 +1,17 @@
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment1/FilteringWordCount.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment1/BooksWritable.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/exercise1/BookAndAuthorBroadcastJoin.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/exercise2/Vector.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment1/BookAndAuthorReduceSideJoin.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment1/Book.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment1/AverageTemperaturePerMonth.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/HadoopJob.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/exercise2/DenseVector.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment2/SparseVector.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/exercise1/NumberPairWritable.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/exercise1/WordCount.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment2/MapReduceEngine.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment2/DistributedLinearRegression.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/assignment2/SparseMatrixVectorMultiplication.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/exercise1/InvertedIndex.java
+/Users/christianlannefranque/Documents/GitHub/uva-bigdata-course-2021-students/src/main/java/nl/uva/bigdata/hadoop/exercise2/DenseMatrixVectorMultiplication.java
