@@ -19,6 +19,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class AverageTemperaturePerMonth extends HadoopJob {
 
@@ -110,8 +111,8 @@ public class AverageTemperaturePerMonth extends HadoopJob {
   public static class MeasurementsMapper extends Mapper<Object, Text, YearMonthWritable, IntWritable> {
 
     private static final Pattern SEPARATOR = Pattern.compile("\t");
-    private final static IntWritable YEAR_MONTH = new YearMonthWritable();
-    private final Text TEMP = new IntWritable();
+    private final static YearMonthWritable YEAR_MONTH = new YearMonthWritable();
+    private final IntWritable TEMP = new IntWritable();
         
     public void map(Object key, Text value, Mapper.Context context) throws IOException, InterruptedException {
       // TODO Implement me
@@ -124,7 +125,7 @@ public class AverageTemperaturePerMonth extends HadoopJob {
       int quality = Integer.parseInt(tokens[3]);
       
       // 2) get minimin quality parameter
-      int min_quality = context.getConfiguration().get("__UVA_minimumQuality");
+      int min_quality = parseInt(context.getConfiguration().get("__UVA_minimumQuality"));
 
       // 3) Check if quality is over the minimum
       if(quality >= min_quality){
@@ -152,7 +153,7 @@ public class AverageTemperaturePerMonth extends HadoopJob {
       int month = yearMonth.getMonth();
 
       // 2) Calculate average
-      int totalTemp = 0
+      int totalTemp = 0;
       int i = 0;
       
       // 2.1) Iterate over temperatures. Sum temperatures in totalTemp variable and count how many in i variable
@@ -165,12 +166,10 @@ public class AverageTemperaturePerMonth extends HadoopJob {
       int meanTemp = totalTemp/i;
       
       // 3) Create Output Text
-      OUTPUT.set(year.toString() + "\t" + month.toString() + "\t" + meanTemp.toString());
+      OUTPUT.set(String.valueOf(year) + "\t" + String.valueOf(month) + "\t" + String.valueOf(meanTemp));
       
       // 4) Send to context
       context.write(OUTPUT, NullWritable.get());
-      }
-      // Average
     }
   }
 }
