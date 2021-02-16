@@ -70,11 +70,15 @@ public class AverageTemperaturePerMonth extends HadoopJob {
     @Override
     public void write(DataOutput out) throws IOException {
       // TODO Implement me
+      out.writeInt(this.year);
+      out.writeInt(this.month);
     }
 
     @Override
     public void readFields(DataInput in) throws IOException {
       // TODO Implement me
+      this.year = in.readInt();
+      this.month = in.readInt();
     }
 
     @Override
@@ -105,21 +109,67 @@ public class AverageTemperaturePerMonth extends HadoopJob {
 
   public static class MeasurementsMapper extends Mapper<Object, Text, YearMonthWritable, IntWritable> {
 
+    private static final Pattern SEPARATOR = Pattern.compile("\t");
+    private final static IntWritable YEAR_MONTH = new YearMonthWritable();
+    private final Text TEMP = new IntWritable();
+        
     public void map(Object key, Text value, Mapper.Context context) throws IOException, InterruptedException {
       // TODO Implement me
       
-      // Key = Year + month
+      // 1) Split columns
+      String[] tokens = SEPARATOR.split(value.toString());
+      int year = Integer.parseInt(tokens[0]);
+      int month = Integer.parseInt(tokens[1]);
+      int temp = Integer.parseInt(tokens[2]);
+      int quality = Integer.parseInt(tokens[3]);
+      
+      // 2) get minimin quality parameter
+      int min_quality = context.getConfiguration().get("__UVA_minimumQuality");
 
-      // context.write()
+      // 3) Check if quality is over the minimum
+      if(quality >= min_quality){
+        
+        // 4) Set Hadoop variables
+        YEAR_MONTH.setYear(year);
+        YEAR_MONTH.setMonth(month);
+        TEMP.set(temp);
+
+        // 5) Send to context
+        context.write(YEAR_MONTH, TEMP);
+      }
     }
   }
 
   public static class AveragingReducer extends Reducer<YearMonthWritable,IntWritable,Text,NullWritable> {
 
+    private final Text OUTPUT = new Text();
+
     public void reduce(YearMonthWritable yearMonth, Iterable<IntWritable> temperatures, Context context)
             throws IOException, InterruptedException {
       // TODO Implement me
+      // 1) Get year and month
+      int year = yearMonth.getYear();
+      int month = yearMonth.getMonth();
 
+      // 2) Calculate average
+      int totalTemp = 0
+      int i = 0;
+      
+      // 2.1) Iterate over temperatures. Sum temperatures in totalTemp variable and count how many in i variable
+      for (IntWritable temp : temperatures) {
+          totalTemp += temp.get();
+          i++;
+      }
+
+      // 2.2) Calculate mean
+      int meanTemp = totalTemp/i;
+      
+      // 3) Create Output Text
+      OUTPUT.set(year.toString() + "\t" + month.toString() + "\t" + meanTemp.toString());
+      
+      // 4) Send to context
+      context.write(OUTPUT, NullWritable.get());
+      }
       // Average
     }
   }
