@@ -11,56 +11,45 @@ public class BooksWritable  implements Writable {
 
     private Book[] books;
 
-    public void setBooks(Book[] books) {
+    public void setBooks(Book[] books) { //set function is to update something; in this case, we're updating the books to a new array/ initializing
+                                        // this is needed because the book array is private and therefore cannot be changed from within functions
         this.books = books;
     }
+    //The problem with arrays in Java: not dynamic; when initializing, you have to specify the size, so that Java can allocate the appropriate amount of memory
 
     @Override
     public void write(DataOutput out) throws IOException {
         // TODO Implement me
-        // Take books and transform to bits
+        // take books and transform to bytws
 
-        //1) Loop over the books array / dictinary
-        
-        //2) For
-        //out.writeBytes(this.books.title.toString()); --> 101....01
-        //out.writeBytes(this.books.year.toString()); --> 010
+        out.writeInt(books.length); //first outputting the length of the array
 
-        for (int i = 0; i < books.length; i++) {​​
-
+        for (int i = 0; i < books.length; i++) {
             Book book = books[i];
-            
-            String s = "{​​" + book.getTitle() + "_" + book.getYear() + "}​​"; // _
-            out.writeBytes(s); --> 0101010101 + 0101010101010 + 0010101
-            }​​
+            String title = book.getTitle();
+            int year = book.getYear();
 
+            out.writeUTF(title); //preserves formatting to avoid further errors
+            out.writeInt(year);
+        }
     }
 
     @Override
     public void readFields(DataInput in) throws IOException {
         // TODO Implement me
-        //read buffer (lebgth = 3 ) 101
-        //https://docs.oracle.com/javase/7/docs/api/java/io/DataInput.html#readChar()
-        
-        //1) Read DataInput in while is not finished
-        title = ''
-        year = ''
-        
-        While (character = in.readChar()){
-            if character = '{'
-            // Next characters are the tittle
-                title = title + character
-            if character = '_'
-            // next characters are the year
-                year = year + character
-            if character = '}'
-                temp_book = New Book(title, year)
-                this.Book.append(temp_book)
-        }
 
+        int array_length = in.readInt();
+        this.books = new Book[array_length]; // initializing the array: requires inputting the length
+
+        for (int i=0; i < array_length; i++) {
+            String title = in.readUTF();
+            int year = in.readInt();
+            Book temp_book = new Book(title, year);
+            this.books[i] = temp_book;
+        }
     }
 
-    @Override
+            @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
